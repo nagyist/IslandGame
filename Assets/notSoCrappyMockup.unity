@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   townLocationGeo: {fileID: 117138, guid: 5a4050fa996d3f745b828f35773afa76, type: 2}
   roadLocationGeo: {fileID: 193690, guid: 6e5079d64598af44f8c107a50dc70db0, type: 2}
+  hexLocationGeo: {fileID: 182156, guid: b4a681eb33b44ac45a556d550df6c3fb, type: 2}
 --- !u!4 &817606949
 Transform:
   m_ObjectHideFlags: 0

@@ -5,6 +5,9 @@ public class GameBoard : MonoBehaviour {
 
     public GameObject townLocationGeo;
     public GameObject roadLocationGeo;
+    public GameObject hexLocationGeo;
+
+    private GameObject gameBoard;
 
     List<Point> pointList;
     List<Edge> edgeList;
@@ -16,12 +19,15 @@ public class GameBoard : MonoBehaviour {
         edgeList = new List<Edge>();
         hexList = new List<Hex>();
 
+        gameBoard = this.gameObject;
+
         initializePoints();
         initializeEdges();
         initializeHexes();
 
         initializeTownLocations();
         initializeRoadLocations();
+        initializeHexLocations();
 
     }
 
@@ -193,15 +199,24 @@ public class GameBoard : MonoBehaviour {
     //Place a gameobject on the board for each town location
     private void initializeTownLocations() {
         foreach (Point point in pointList) {
-            GameObject go = (GameObject)Instantiate(townLocationGeo, new Vector3(point.locX, 0f, point.locY), new Quaternion());
-            go.transform.name = point.ToString();
+            GameObject go = (GameObject)Instantiate(townLocationGeo, point.location, new Quaternion());
+            go.transform.name = "Point: " + point.ToString();
+            go.transform.parent = gameBoard.transform;
         }
     }
 
     //Place a gameobject on the board for each road location
     private void initializeRoadLocations() {
         foreach (Edge edge in edgeList) {
-            GameObject go = (GameObject)Instantiate(roadLocationGeo, new Vector3((edge.edgePoints[0].locX + edge.edgePoints[1].locX) / 2, 0, (edge.edgePoints[0].locY + edge.edgePoints[1].locY) / 2), new Quaternion());
+            GameObject go = (GameObject)Instantiate(roadLocationGeo, new Vector3((edge.edgePoints[0].location.x + edge.edgePoints[1].location.x) / 2, 0, (edge.edgePoints[0].location.z + edge.edgePoints[1].location.z) / 2), new Quaternion());
+            go.transform.parent = gameBoard.transform;
+        }
+    }
+
+    //Place a gameobject on the board for each hex
+    private void initializeHexLocations() {
+        foreach (Hex hex in hexList) {
+            GameObject go = (GameObject)Instantiate(hexLocationGeo, hex.location, new Quaternion());
         }
     }
 

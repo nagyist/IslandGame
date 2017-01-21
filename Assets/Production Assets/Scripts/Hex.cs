@@ -5,7 +5,9 @@ public class Hex {
 
     public List<Hex> hexNeighbours = new List<Hex>();
     public List<Point> hexPoints = new List<Point>();
-    public List<Edge> hexEdges = new List<Edge>();    
+    public List<Edge> hexEdges = new List<Edge>();
+
+    public Vector3 location;    
 
     public Hex(Point point01, Point point02, Point point03, Point point04, Point point05, Point point06) {
 
@@ -17,6 +19,7 @@ public class Hex {
         hexPoints.Add(point06);
 
         findEdges();
+        calcLocation();
     }
 
     private void findEdges() {
@@ -30,6 +33,17 @@ public class Hex {
                 }
             }
         }
+    }
+
+    private void calcLocation() {
+
+        Vector3 tempLoc = Vector3.zero;
+
+        foreach (Point point in hexPoints) {
+            tempLoc += point.location;
+        }
+
+        location = tempLoc / hexPoints.Count;
     }
 
 }

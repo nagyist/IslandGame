@@ -6,8 +6,7 @@ public class Point {
     public int x;
     public int y;
 
-    public float locX;
-    public float locY;
+    public Vector3 location;
 
     public List<Edge> pointEdges = new List<Edge>();
 
@@ -27,8 +26,8 @@ public class Point {
 
     private void calcLocation() {
 
-        locX = x * 2;
-        locY = ((float)y / 2) * 1.73205f;
+        float locX = x * 2;
+        float locY = ((float)y / 2) * 1.73205f;
 
         if ((float)y % 2 == 0) {
             if ((float)x % 2 == 0)
@@ -46,6 +45,8 @@ public class Point {
         if (x > 1) {
             locX = locX - 1.0f;
         }
+
+        location = new Vector3(locX, 0.0f, locY);
 
     }
 
