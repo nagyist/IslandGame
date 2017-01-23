@@ -7,7 +7,8 @@ public class Hex {
     public List<Point> hexPoints = new List<Point>();
     public List<Edge> hexEdges = new List<Edge>();
 
-    public Vector3 location;    
+    public Vector3 location;
+    public TileType tileType;
 
     public Hex(Point point01, Point point02, Point point03, Point point04, Point point05, Point point06) {
 

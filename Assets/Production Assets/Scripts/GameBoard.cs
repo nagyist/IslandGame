@@ -5,7 +5,7 @@ public class GameBoard : MonoBehaviour {
 
     public GameObject townLocationGeo;
     public GameObject roadLocationGeo;
-    public GameObject hexLocationGeo;
+    public static GameObject[] hexObjects;
 
     private GameObject gameBoard;
 
@@ -19,11 +19,15 @@ public class GameBoard : MonoBehaviour {
         edgeList = new List<Edge>();
         hexList = new List<Hex>();
 
+        hexObjects = Resources.LoadAll<GameObject>("HexPrefabs");
+
         gameBoard = this.gameObject;
 
         initializePoints();
         initializeEdges();
         initializeHexes();
+
+        shuffleBoard();
 
         initializeTownLocations();
         initializeRoadLocations();
@@ -210,15 +214,74 @@ public class GameBoard : MonoBehaviour {
         foreach (Edge edge in edgeList) {
             GameObject go = (GameObject)Instantiate(roadLocationGeo, new Vector3((edge.edgePoints[0].location.x + edge.edgePoints[1].location.x) / 2, 0, (edge.edgePoints[0].location.z + edge.edgePoints[1].location.z) / 2), new Quaternion());
             go.transform.parent = gameBoard.transform;
+            go.transform.name = "Road: " + edge.edgePoints[0] +" to " + edge.edgePoints[1];
         }
     }
 
     //Place a gameobject on the board for each hex
     private void initializeHexLocations() {
         foreach (Hex hex in hexList) {
-            GameObject go = (GameObject)Instantiate(hexLocationGeo, hex.location, new Quaternion());
+            GameObject go = (GameObject)Instantiate(hexObjects[(int)hex.tileType], hex.location, new Quaternion());
+            go.transform.name = "Hex: " + hex.tileType.ToString();
+            go.transform.parent = gameBoard.transform;
         }
     }
+
+    //Add a random tile type to each hex
+    public void shuffleBoard()
+    {
+
+        List<TileType> resources = new List<TileType>();
+
+        for (int i = 0; i < 4; i++)
+        {
+            resources.Add(TileType.wood);
+            resources.Add(TileType.sheep);
+            resources.Add(TileType.wheat);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            resources.Add(TileType.clay);
+            resources.Add(TileType.stone);
+        }
+
+        resources.Add(TileType.desert);
+        Shuffle(resources);
+
+        for (int i = 0; i < hexList.Count; i++)
+        {
+            hexList[i].tileType = resources[0];
+            resources.RemoveAt(0);
+        }
+    }
+
+    //Randomize a list of objects
+    public void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        System.Random rnd = new System.Random();
+        while (n > 1)
+        {
+            int k = (rnd.Next(0, n) % n);
+            n--;
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    /*
+    double bearing(double a1, double a2, double b1, double b2) {
+    static const double TWOPI = 6.2831853071795865;
+    static const double RAD2DEG = 57.2957795130823209;
+    // if (a1 = b1 and a2 = b2) throw an error 
+    double theta = atan2(b1 - a1, a2 - b2);
+    if (theta < 0.0)
+        theta += TWOPI;
+    return RAD2DEG * theta;
+    }
+    */
 
 }
 
