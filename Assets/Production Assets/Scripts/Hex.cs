@@ -9,6 +9,7 @@ public class Hex {
 
     public Vector3 location;
     public TileType tileType;
+    public int tileNumber;
 
     public Hex(Point point01, Point point02, Point point03, Point point04, Point point05, Point point06) {
 

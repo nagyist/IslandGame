@@ -28,6 +28,7 @@ public class GameBoard : MonoBehaviour {
         initializeHexes();
 
         shuffleBoard();
+        randomNumbers();
 
         initializeTownLocations();
         initializeRoadLocations();
@@ -254,6 +255,41 @@ public class GameBoard : MonoBehaviour {
         {
             hexList[i].tileType = resources[0];
             resources.RemoveAt(0);
+        }
+    }
+
+    //Add a random number to each tile
+    public void randomNumbers() {
+
+        List<int> numbers = new List<int>();
+
+        numbers.Add(5);
+        numbers.Add(2);
+        numbers.Add(6);
+        numbers.Add(3);
+        numbers.Add(8);
+        numbers.Add(10);
+        numbers.Add(9);
+        numbers.Add(12);
+        numbers.Add(11);
+        numbers.Add(4);
+        numbers.Add(8);
+        numbers.Add(10);
+        numbers.Add(9);
+        numbers.Add(4);
+        numbers.Add(5);
+        numbers.Add(6);
+        numbers.Add(3);
+        numbers.Add(11);
+
+        Shuffle(numbers);
+
+        for (int i = 0; i < hexList.Count; i++)
+        {
+            if (hexList[i].tileType != TileType.desert) {
+                hexList[i].tileNumber = numbers[0];
+                numbers.RemoveAt(0);
+            }
         }
     }
 
