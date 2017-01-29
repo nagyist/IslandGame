@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2392442}
   - 95: {fileID: 9511344}
   - 64: {fileID: 6478808}
-  - 114: {fileID: 11471202}
+  - 114: {fileID: 11437484}
   m_Layer: 0
   m_Name: IG_hex_mockup_GEO
   m_TagString: Untagged
@@ -122,7 +122,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11471202
+--- !u!114 &11437484
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 148270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db99f44ff9b3324d88192d924b0b518, type: 3}
+  m_Script: {fileID: 11500000, guid: 484f1a9c35628a34d8754be666bfec9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   infoText: {fileID: 0}

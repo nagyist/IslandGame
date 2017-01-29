@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3310874}
   - 135: {fileID: 13578796}
   - 23: {fileID: 2341322}
-  - 114: {fileID: 11452256}
+  - 114: {fileID: 11488646}
   m_Layer: 0
   m_Name: TownLoc
   m_TagString: Untagged
@@ -64,7 +64,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 117138}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11452256
+--- !u!114 &11488646
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 117138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 352a390b9208ac940989b503a90450ef, type: 3}
+  m_Script: {fileID: 11500000, guid: de01d41f971ca704bbb0f2acb7911375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   infoText: {fileID: 0}

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HoverInfoHex : MonoBehaviour {
+public class HexTile : MonoBehaviour {
 
+    public Hex hex;
     public Text infoText;
 
     public void Start() {
@@ -10,7 +11,7 @@ public class HoverInfoHex : MonoBehaviour {
     }
 
     public void OnMouseEnter() {
-        infoText.text = gameObject.name.ToString();
+        infoText.text = hex.tileType.ToString() + "\n" + "Tile number: " + hex.tileNumber.ToString();
     }
 
     public void OnMouseExit() {

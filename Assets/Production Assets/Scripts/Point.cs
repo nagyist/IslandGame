@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class Point {
 
+    public bool isOccupied = false;
+    public Player owner = null;
+
     public int x;
     public int y;
 

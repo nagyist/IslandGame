@@ -36,6 +36,14 @@ public class GameBoard : MonoBehaviour {
 
     }
 
+    //TEMPORARY - BELONGS IN GAME LOOP SCRIPT OR INPUT MANAGER
+    void Update()
+    {
+        if (Input.GetKey("escape"))
+            Application.Quit();
+
+    }
+
     //Find a specific point in the points list.
     public Point findPoint(int x, int y) {
 
@@ -207,6 +215,7 @@ public class GameBoard : MonoBehaviour {
             GameObject go = (GameObject)Instantiate(townLocationGeo, point.location, new Quaternion());
             go.transform.name = "Point: " + point.ToString();
             go.transform.parent = gameBoard.transform;
+            go.GetComponent<PointTile>().point = point;
         }
     }
 
@@ -217,6 +226,7 @@ public class GameBoard : MonoBehaviour {
             go.transform.parent = gameBoard.transform;
             go.transform.name = "Road: " + edge.edgePoints[0] +" to " + edge.edgePoints[1];
             go.transform.Rotate(new Vector3(0, bearing(edge.edgePoints[0].location, edge.edgePoints[1].location), 0));
+            go.GetComponent<EdgeTile>().edge = edge;
         }
     }
 
@@ -226,6 +236,8 @@ public class GameBoard : MonoBehaviour {
             GameObject go = (GameObject)Instantiate(hexObjects[(int)hex.tileType], hex.location, new Quaternion());
             go.transform.name = "Hex: " + hex.tileType.ToString();
             go.transform.parent = gameBoard.transform;
+            HexTile tempHex = go.GetComponentInChildren<HexTile>();
+            tempHex.hex = hex;
         }
     }
 
