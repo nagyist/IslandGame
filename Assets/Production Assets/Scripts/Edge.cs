@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class Edge {
 
+    public EdgeTile edgeTile;
     public bool isOccupied = false;
     public Player owner = null;
+    public RoadType currRoadType = RoadType.unbuilt;
 
     public List<Point> edgePoints = new List<Point>();
     public List<Hex> edgeHexes = new List<Hex>();

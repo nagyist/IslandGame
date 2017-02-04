@@ -5,13 +5,15 @@ public class GameBoard : MonoBehaviour {
 
     public GameObject townLocationGeo;
     public GameObject roadLocationGeo;
+    public GameObject cityLocationGeo;
+    public GameObject settlementLocationGeo;
     public static GameObject[] hexObjects;
 
     private GameObject gameBoard;
 
-    List<Point> pointList;
-    List<Edge> edgeList;
-    List<Hex> hexList;
+    public List<Point> pointList;
+    public List<Edge> edgeList;
+    public List<Hex> hexList;
 
     public void Start() {
 
@@ -30,19 +32,12 @@ public class GameBoard : MonoBehaviour {
         shuffleBoard();
         randomNumbers();
 
-        initializeTownLocations();
+        initializeSettlementLocation();
         initializeRoadLocations();
-        initializeHexLocations();
+        initializeHexLocations(); 
 
     }
 
-    //TEMPORARY - BELONGS IN GAME LOOP SCRIPT OR INPUT MANAGER
-    void Update()
-    {
-        if (Input.GetKey("escape"))
-            Application.Quit();
-
-    }
 
     //Find a specific point in the points list.
     public Point findPoint(int x, int y) {
@@ -210,12 +205,13 @@ public class GameBoard : MonoBehaviour {
     }
 
     //Place a gameobject on the board for each town location
-    private void initializeTownLocations() {
+    private void initializeSettlementLocation() {
         foreach (Point point in pointList) {
-            GameObject go = (GameObject)Instantiate(townLocationGeo, point.location, new Quaternion());
+            GameObject go = (GameObject)Instantiate(settlementLocationGeo, point.location, new Quaternion());
             go.transform.name = "Point: " + point.ToString();
             go.transform.parent = gameBoard.transform;
             go.GetComponent<PointTile>().point = point;
+            point.pointTile = go.GetComponent<PointTile>();
         }
     }
 
@@ -227,6 +223,7 @@ public class GameBoard : MonoBehaviour {
             go.transform.name = "Road: " + edge.edgePoints[0] +" to " + edge.edgePoints[1];
             go.transform.Rotate(new Vector3(0, bearing(edge.edgePoints[0].location, edge.edgePoints[1].location), 0));
             go.GetComponent<EdgeTile>().edge = edge;
+            edge.edgeTile = go.GetComponent<EdgeTile>();
         }
     }
 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class Point {
 
+    public PointTile pointTile;
     public bool isOccupied = false;
     public Player owner = null;
+    public CityType currCityType = CityType.unbuilt;
 
     public int x;
     public int y;
