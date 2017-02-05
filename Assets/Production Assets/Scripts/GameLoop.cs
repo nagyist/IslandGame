@@ -62,7 +62,12 @@ public class GameLoop : MonoBehaviour {
 
             if (point.isOccupied) {
 
-                point.owner.resourceList[hex.tileType] += 1;                
+                if (point.currCityType == CityType.town) {
+                    point.owner.resourceList[hex.tileType] += 1;
+                }
+                else if (point.currCityType == CityType.city) {
+                    point.owner.resourceList[hex.tileType] += 2;
+                }         
 
             }
 
