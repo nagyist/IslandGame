@@ -86,11 +86,9 @@ public class GameLoop : MonoBehaviour {
         }
         else {
 
-            foreach (Hex hex in gameBoard.hexList)
-            {
+            foreach (Hex hex in gameBoard.hexList) {
 
-                if (hex.tileNumber == turnRoll)
-                {
+                if (hex.tileNumber == turnRoll) {
 
                     allocateResources(hex);
 
@@ -100,8 +98,7 @@ public class GameLoop : MonoBehaviour {
 
         }
 
-        foreach (KeyValuePair<TileType, int> kvp in currPlayer.resourceList)
-        {
+        foreach (KeyValuePair<TileType, int> kvp in currPlayer.resourceList) {
             Debug.Log(string.Format("Resource: {0}, Total: {1}", kvp.Key, kvp.Value));
         }
 

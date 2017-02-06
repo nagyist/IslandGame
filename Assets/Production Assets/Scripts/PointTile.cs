@@ -21,6 +21,7 @@ public class PointTile : MonoBehaviour {
         point.owner = gameController.currPlayer;
         GameObject go = (GameObject)Instantiate(assetLibrary.townPrefab, point.location, new Quaternion());
         go.transform.name = this.transform.name;
+        go.transform.parent = this.transform.parent;
         point.pointTile = go.GetComponent<PointTile>();
         point.pointTile.point = this.point;
         Destroy(this.gameObject);
@@ -32,6 +33,7 @@ public class PointTile : MonoBehaviour {
         point.owner = gameController.currPlayer;
         GameObject go = (GameObject)Instantiate(assetLibrary.cityPrefab, point.location, new Quaternion());
         go.transform.name = this.transform.name;
+        go.transform.parent = this.transform.parent;
         point.pointTile = go.GetComponent<PointTile>();
         point.pointTile.point = this.point;
         Destroy(this.gameObject);

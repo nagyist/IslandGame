@@ -4,5 +4,6 @@ public class AssetLibrary : MonoBehaviour {
 
     public GameObject cityPrefab;
     public GameObject townPrefab;
+    public GameObject roadPrefab;
 
 }

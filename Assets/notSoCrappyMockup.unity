@@ -652,6 +652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cityPrefab: {fileID: 131566, guid: 353ddfa8e6959204297a444a50d6db88, type: 2}
   townPrefab: {fileID: 196760, guid: 7c8ec4617d4fde24e9fad9c07600aae3, type: 2}
+  roadPrefab: {fileID: 164444, guid: 6d2e77faa526bfd4e8d5ede9d69951e6, type: 2}
 --- !u!1 &1740069379
 GameObject:
   m_ObjectHideFlags: 0
