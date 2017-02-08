@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameBoard : MonoBehaviour {
@@ -15,6 +16,9 @@ public class GameBoard : MonoBehaviour {
     public List<Edge> edgeList;
     public List<Hex> hexList;
 
+    public Text hexText;
+    public Canvas hexCanvas;
+
     public void Start() {
 
         pointList = new List<Point>();
@@ -24,6 +28,8 @@ public class GameBoard : MonoBehaviour {
         hexObjects = Resources.LoadAll<GameObject>("HexPrefabs");
 
         gameBoard = this.gameObject;
+
+        hexCanvas = GetComponentInChildren<Canvas>();
 
         initializePoints();
         initializeEdges();
@@ -230,11 +236,20 @@ public class GameBoard : MonoBehaviour {
     //Place a gameobject on the board for each hex
     private void initializeHexLocations() {
         foreach (Hex hex in hexList) {
+
             GameObject go = (GameObject)Instantiate(hexObjects[(int)hex.tileType], hex.location, new Quaternion());
             go.transform.name = "Hex: " + hex.tileType.ToString();
             go.transform.parent = gameBoard.transform;
             HexTile tempHex = go.GetComponentInChildren<HexTile>();
             tempHex.hex = hex;
+
+            if (hex.tileNumber != 0)
+            {
+                Text label = Instantiate<Text>(hexText);
+                label.rectTransform.SetParent(hexCanvas.transform, false);
+                label.rectTransform.anchoredPosition = new Vector2(hex.location.x, hex.location.z);
+                label.text = hex.tileNumber.ToString();
+            }
         }
     }
 
