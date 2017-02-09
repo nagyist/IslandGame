@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Player {
 
 
     public string playerName;
+    public Color playerColour;
 
     public Dictionary<TileType, int> resourceList;
 

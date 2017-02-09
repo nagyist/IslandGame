@@ -24,6 +24,7 @@ public class EdgeTile : MonoBehaviour {
         GameObject go = (GameObject)Instantiate(assetLibrary.roadPrefab, this.transform.position, this.transform.rotation);
         go.transform.name = this.transform.name;
         go.transform.parent = this.transform.parent;
+        go.transform.GetComponent<MeshRenderer>().material.color = gameController.currPlayer.playerColour;
         edge.edgeTile = go.GetComponent<EdgeTile>();
         edge.edgeTile.edge = this.edge;
         Destroy(this.gameObject);

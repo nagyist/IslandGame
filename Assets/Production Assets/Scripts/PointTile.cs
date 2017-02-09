@@ -22,6 +22,7 @@ public class PointTile : MonoBehaviour {
         GameObject go = (GameObject)Instantiate(assetLibrary.townPrefab, point.location, new Quaternion());
         go.transform.name = this.transform.name;
         go.transform.parent = this.transform.parent;
+        go.transform.GetComponent<MeshRenderer>().material.color = gameController.currPlayer.playerColour;
         point.pointTile = go.GetComponent<PointTile>();
         point.pointTile.point = this.point;
         Destroy(this.gameObject);
@@ -34,6 +35,7 @@ public class PointTile : MonoBehaviour {
         GameObject go = (GameObject)Instantiate(assetLibrary.cityPrefab, point.location, new Quaternion());
         go.transform.name = this.transform.name;
         go.transform.parent = this.transform.parent;
+        go.transform.GetComponent<MeshRenderer>().material.color = gameController.currPlayer.playerColour;
         point.pointTile = go.GetComponent<PointTile>();
         point.pointTile.point = this.point;
         Destroy(this.gameObject);

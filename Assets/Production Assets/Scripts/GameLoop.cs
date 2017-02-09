@@ -6,11 +6,13 @@ public class GameLoop : MonoBehaviour {
     private GameBoard gameBoard;
     public Player currPlayer;
     public List<Player> playerList;
+    public turnState currState;
 
     void Start() {
 
         gameBoard = GameObject.FindGameObjectWithTag("GameBoard").GetComponent<GameBoard>();
         playerList = new List<Player>();
+        currState = turnState.setup;
 
         createPlayers();
 
@@ -24,17 +26,27 @@ public class GameLoop : MonoBehaviour {
         if (Input.GetKeyUp("t"))
             startTurn();
 
+        if (Input.GetKeyUp("g"))
+            nextPlayerInOrder();
+
+        if(Input.GetKeyUp("q"))
+            Debug.Log(currPlayer.playerColour.ToString());
+
     }
 
     public void createPlayers() {
 
         Player player01 = new Player("James");
+        player01.playerColour = Color.green;
         playerList.Add(player01);
         Player player02 = new Player("Stefan");
+        player02.playerColour = Color.blue;
         playerList.Add(player02);
         Player player03 = new Player("Tom");
+        player03.playerColour = Color.red;
         playerList.Add(player03);
         Player player04 = new Player("Alex");
+        player04.playerColour = Color.magenta;
         playerList.Add(player04);
 
         currPlayer = playerList[0];
@@ -102,6 +114,35 @@ public class GameLoop : MonoBehaviour {
             Debug.Log(string.Format("Resource: {0}, Total: {1}", kvp.Key, kvp.Value));
         }
 
-    }                   //Temporarily started.  Need to define players objects, currently have multiple player 01s.
+    }                   //Temporarily started.
+
+    public void nextPlayerInOrder() {
+
+        int playerNum = playerList.IndexOf(currPlayer);
+        int numPlayers = playerList.Count;
+
+        playerNum += 1;
+
+        if (playerNum == numPlayers)
+            playerNum = 0;
+
+        currPlayer = playerList[playerNum];
+
+    }
+
+    public void nextPlayerReverseOrder()
+    {
+
+        int playerNum = playerList.IndexOf(currPlayer);
+        int numPlayers = playerList.Count;
+
+        playerNum -= 1;
+
+        if (playerNum == 0)
+            playerNum = numPlayers - 1;
+
+        currPlayer = playerList[playerNum];
+
+    }
 
 }
