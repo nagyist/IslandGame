@@ -1,21 +1,13 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class HexTile : MonoBehaviour {
+public class HexTile : MonoBehaviour, IPointerClickHandler {
 
     public Hex hex;
-    public Text infoText;
 
-    public void Start() {
-        infoText = GameObject.Find("Info_Panel_Text").GetComponent<Text>();
-    }
-
-    public void OnMouseEnter() {
-        infoText.text = hex.tileType.ToString() + "\n" + "Tile number: " + hex.tileNumber.ToString();
-    }
-
-    public void OnMouseExit() {
-        infoText.text = "";
+    public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log("Robber");
     }
 
 }

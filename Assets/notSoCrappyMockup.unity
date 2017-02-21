@@ -232,7 +232,7 @@ GameObject:
   - 114: {fileID: 601789303}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: InfoUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,6 +338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64989250e277fbc42b3b5926ed3dbd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currState: 0
+  gameState: 0
 --- !u!4 &784315089
 Transform:
   m_ObjectHideFlags: 0
@@ -669,6 +671,7 @@ GameObject:
   - 224: {fileID: 1648582131}
   - 222: {fileID: 1648582133}
   - 114: {fileID: 1648582132}
+  - 114: {fileID: 1648582134}
   m_Layer: 5
   m_Name: Info_Panel
   m_TagString: Untagged
@@ -727,6 +730,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1648582130}
+--- !u!114 &1648582134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1648582130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce00c91fb937ba4b99897a4d7e8bf86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1677466251 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 9485b0c79d11e2e4d0007da98d76c639, type: 2}
@@ -773,6 +787,7 @@ MonoBehaviour:
   cityPrefab: {fileID: 131566, guid: 353ddfa8e6959204297a444a50d6db88, type: 2}
   townPrefab: {fileID: 196760, guid: 7c8ec4617d4fde24e9fad9c07600aae3, type: 2}
   roadPrefab: {fileID: 164444, guid: 6d2e77faa526bfd4e8d5ede9d69951e6, type: 2}
+  buildPanel: {fileID: 144176, guid: a43772fb2567e7d458e765e29df5f699, type: 2}
 --- !u!1 &1740069379
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +800,7 @@ GameObject:
   - 92: {fileID: 1740069382}
   - 124: {fileID: 1740069381}
   - 81: {fileID: 1740069380}
+  - 114: {fileID: 1740069385}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -859,3 +875,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1740069385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1740069379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -768656878, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295

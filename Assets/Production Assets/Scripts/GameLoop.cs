@@ -7,30 +7,27 @@ public class GameLoop : MonoBehaviour {
     public Player currPlayer;
     public List<Player> playerList;
     public turnState currState;
+    public GameStates gameState;
 
     void Start() {
 
         gameBoard = GameObject.FindGameObjectWithTag("GameBoard").GetComponent<GameBoard>();
         playerList = new List<Player>();
         currState = turnState.setup;
+        gameState = GameStates.setupTurn01;
 
         createPlayers();
 
     }
 
-	void Update () {
+	void Update ()
+    {
 
         if (Input.GetKey("escape"))
             Application.Quit();
 
-        if (Input.GetKeyUp("t"))
-            startTurn();
-
-        if (Input.GetKeyUp("g"))
-            nextPlayerInOrder();
-
-        if(Input.GetKeyUp("q"))
-            Debug.Log(currPlayer.playerColour.ToString());
+        if (Input.GetKeyUp("return"))
+            endTurn();
 
     }
 
@@ -130,18 +127,66 @@ public class GameLoop : MonoBehaviour {
 
     }
 
-    public void nextPlayerReverseOrder()
-    {
+    public void countPlayersUp() {
 
         int playerNum = playerList.IndexOf(currPlayer);
         int numPlayers = playerList.Count;
 
-        playerNum -= 1;
+        playerNum += 1;
 
-        if (playerNum == 0)
-            playerNum = numPlayers - 1;
+        if (playerNum == numPlayers)
+        {
+            gameState = GameStates.setupTurn02;
+            playerNum -= 1;
+        }
 
         currPlayer = playerList[playerNum];
+
+    }
+
+    public void countPlayersDown() {
+
+        int playerNum = playerList.IndexOf(currPlayer);
+        //int numPlayers = playerList.Count;
+
+        playerNum -= 1;
+
+        if (playerNum < 0)
+        {
+            gameState = GameStates.mainGame;
+            playerNum = 0;
+            startTurn();
+        }
+
+        currPlayer = playerList[playerNum];
+
+    }
+
+    public void endTurn() {
+
+        switch (gameState) {
+
+            case GameStates.setupTurn01:
+
+                if (currPlayer.firstTown != null && currPlayer.firstRoadBuilt) {
+                    countPlayersUp();
+                }
+                break;
+
+            case GameStates.setupTurn02:
+
+                if (currPlayer.secondTown != null && currPlayer.secondRoadBuilt) {
+                    countPlayersDown();
+                }
+                break;
+
+            case GameStates.mainGame:
+
+                nextPlayerInOrder();
+                startTurn();
+                break;
+
+        }
 
     }
 

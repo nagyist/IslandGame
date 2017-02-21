@@ -1,20 +1,64 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class EdgeTile : MonoBehaviour {
+public class EdgeTile : MonoBehaviour, IPointerClickHandler {
 
-
-    public Text infoText;
     public GameLoop gameController;
     public AssetLibrary assetLibrary;
     public Edge edge;
 
 
     void Start () {
-        infoText = GameObject.Find("Info_Panel_Text").GetComponent<Text>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameLoop>();
         assetLibrary = GameObject.FindGameObjectWithTag("AssetLibrary").GetComponent<AssetLibrary>();
     }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+
+        switch (gameController.gameState) {
+            case GameStates.setupTurn01:
+
+                if (edge.currRoadType == RoadType.unbuilt)
+                {
+                    if (checkBuildable() && nextToTown(gameController.currPlayer.firstTown) && !gameController.currPlayer.firstRoadBuilt)
+                    {
+                        GameObject go = (GameObject)Instantiate(assetLibrary.buildPanel, Camera.main.WorldToScreenPoint(edge.edgeTile.transform.position), new Quaternion());
+                        go.transform.SetParent(GameObject.FindGameObjectWithTag("InfoUI").transform, false);
+                        go.GetComponent<BuildPanel>().buildfunction = buildFirstRoad;
+                    }
+                }
+                break;
+
+            case GameStates.setupTurn02:
+
+                if (edge.currRoadType == RoadType.unbuilt)
+                {
+                    if (checkBuildable() && nextToTown(gameController.currPlayer.secondTown) && !gameController.currPlayer.secondRoadBuilt)
+                    {
+                        GameObject go = (GameObject)Instantiate(assetLibrary.buildPanel, Camera.main.WorldToScreenPoint(edge.edgeTile.transform.position), new Quaternion());
+                        go.transform.SetParent(GameObject.FindGameObjectWithTag("InfoUI").transform, false);
+                        go.GetComponent<BuildPanel>().buildfunction = buildSecondRoad;
+                    }
+                }
+                break;
+
+            case GameStates.mainGame:
+
+                if (edge.currRoadType == RoadType.unbuilt)
+                {
+                    if (checkBuildable() && gameController.currPlayer.checkHasRes(1, 1, 0, 0, 0))
+                    {
+                        GameObject go = (GameObject)Instantiate(assetLibrary.buildPanel, Camera.main.WorldToScreenPoint(edge.edgeTile.transform.position), new Quaternion());
+                        go.transform.SetParent(GameObject.FindGameObjectWithTag("InfoUI").transform, false);
+                        go.GetComponent<BuildPanel>().buildfunction = buildRoad;
+                    }
+                }
+                break;
+        }        
+    }
+
 
     public void buildRoad()
     {
@@ -28,28 +72,40 @@ public class EdgeTile : MonoBehaviour {
         edge.edgeTile = go.GetComponent<EdgeTile>();
         edge.edgeTile.edge = this.edge;
         Destroy(this.gameObject);
+
+        gameController.currPlayer.deductCost(1, 1, 0, 0, 0);
     }
 
-    public void OnMouseUp() {
-        if (edge.currRoadType == RoadType.unbuilt) {
-            if (checkBuildable()) {
-                buildRoad();
-            }
-        }
+    public void buildFirstRoad()
+    {
+        edge.isOccupied = true;
+        edge.currRoadType = RoadType.road;
+        edge.owner = gameController.currPlayer;
+        GameObject go = (GameObject)Instantiate(assetLibrary.roadPrefab, this.transform.position, this.transform.rotation);
+        go.transform.name = this.transform.name;
+        go.transform.parent = this.transform.parent;
+        go.transform.GetComponent<MeshRenderer>().material.color = gameController.currPlayer.playerColour;
+        edge.edgeTile = go.GetComponent<EdgeTile>();
+        edge.edgeTile.edge = this.edge;
+        Destroy(this.gameObject);
+
+        gameController.currPlayer.firstRoadBuilt = true;
     }
 
-    public void OnMouseEnter() {
-        if (edge.owner != null)
-        {
-            infoText.text = gameObject.name + "\n" + "Owner: " + edge.owner.playerName + "\n" + edge.currRoadType;
-        }
-        else {
-            infoText.text = gameObject.name + "\n" + "Unoccupied" + "\n" + edge.currRoadType;
-        }
-    }
+    public void buildSecondRoad()
+    {
+        edge.isOccupied = true;
+        edge.currRoadType = RoadType.road;
+        edge.owner = gameController.currPlayer;
+        GameObject go = (GameObject)Instantiate(assetLibrary.roadPrefab, this.transform.position, this.transform.rotation);
+        go.transform.name = this.transform.name;
+        go.transform.parent = this.transform.parent;
+        go.transform.GetComponent<MeshRenderer>().material.color = gameController.currPlayer.playerColour;
+        edge.edgeTile = go.GetComponent<EdgeTile>();
+        edge.edgeTile.edge = this.edge;
+        Destroy(this.gameObject);
 
-    public void OnMouseExit() {
-        infoText.text = "";
+        gameController.currPlayer.secondRoadBuilt = true;
     }
 
     private bool checkBuildable() {
@@ -66,6 +122,21 @@ public class EdgeTile : MonoBehaviour {
                     tempBool = true;
                 }
             }
+        }
+
+        return tempBool;
+    }
+
+    private bool nextToTown(Point town) {
+
+        bool tempBool = false;
+
+        foreach (Point point in edge.edgePoints) {
+
+            if (point == town) {
+                tempBool = true;
+            }
+
         }
 
         return tempBool;
